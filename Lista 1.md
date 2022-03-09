@@ -35,20 +35,19 @@ int main()
 using namespace std;
 
 void rys2(int n) {
-
-    if(n == 0) return;
-
-    cout << "*";
-    rys2(n - 1);
+    if(n > 0) {
+        cout << "*";
+        rys2(n - 1);
+    }
 }
 
 void rys(int n) {
 
-    if(n == 0) return;
-
-    rys2(n);
-    cout << endl;
-    rys(n - 1);
+    if(n > 0) {
+        rys2(n);
+        cout << endl;
+        rys(n - 1);
+    }
 }
 
 int main() {
@@ -61,7 +60,6 @@ int main() {
     rys(n);
 
     return 0;
-}
 }
 ```
 # Zadanie 3
