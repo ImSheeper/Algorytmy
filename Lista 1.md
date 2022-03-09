@@ -150,3 +150,24 @@ int main() {
 }
 ```
 # Zadanie 6
+```cpp
+#include <iostream>
+
+using namespace std;
+
+void han(int n, char a = 'A', char b = 'B', char c = 'C') {
+
+    if(n > 0) {
+        han(n - 1, a, c, b);
+        cout << a << " -> " << c << endl;
+        han(n - 1, b, a, c);
+    }
+}
+
+int main() {
+
+    han(25);
+
+    return 0;
+}
+```
