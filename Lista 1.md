@@ -35,6 +35,7 @@ int main()
 using namespace std;
 
 void rys2(int n) {
+
     if(n > 0) {
         cout << "*";
         rys2(n - 1);
