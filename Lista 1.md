@@ -28,7 +28,7 @@ int main()
     return 0;
 }
 ```
-# Zadanie 2 (NIE DZIAŁA)
+# Zadanie 2
 ```c++
 #include <iostream>
 
