@@ -120,5 +120,33 @@ int main() {
 }
 ```
 # Zadanie 5
+```cpp
+#include <iostream>
 
+using namespace std;
+
+int euk(int a, int b) {
+
+    if(a == b) return a;
+
+    if(a > b) a -= b;
+    else b -= a;
+
+    euk(a, b);
+}
+
+int main() {
+
+    int a, b;
+
+    cout << "Podaj a: " << endl;
+    cin >> a;
+    cout << "Podaj b: " << endl;
+    cin >> b;
+
+    cout << euk(a, b);
+
+    return 0;
+}
+```
 # Zadanie 6
