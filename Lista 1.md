@@ -1,4 +1,4 @@
-# Zadanie 2
+# Zadanie 2 (NIE DZIAŁA)
 ```c++
 #include <iostream>
 
