@@ -88,7 +88,37 @@ int main() {
 ```
 
 # Zadanie 4
+```cpp
+#include <iostream>
+#include <ctime>
 
+using namespace std;
+
+int ele(int tab[], int max = 0, int i = 0) {
+
+    if(i == 50) return max;
+    if(max < tab[i]) {
+        max = tab[i];
+    }
+    ele(tab, max, i+1);
+}
+
+int main() {
+
+    int tab[50];
+
+    srand(time(NULL));
+
+    for(int i = 0; i < 50; i++) {
+        tab[i] = rand() % 101;
+        cout << tab[i] << ", ";
+    }
+
+    cout << endl << "Najwieksza liczba to: " << ele(tab);
+
+    return 0;
+}
+```
 # Zadanie 5
 
 # Zadanie 6
