@@ -98,3 +98,73 @@ int main()
     return 0;
 }
 ```
+# moje podejście, nie działa
+```
+#include <iostream>
+
+using namespace std;
+
+struct lista {
+    string imie;
+    string nazwisko;
+    string pesel;
+    int wiek;
+    lista *pop;
+};
+
+void dodaj(lista *wskaznik) {
+
+    cout << "Imie" << endl;
+    cin >> wskaznik -> imie;
+    cout << "Nazwisko" << endl;
+    cin >> wskaznik -> nazwisko;
+    cout << "PESEL" << endl;
+    cin >> wskaznik -> pesel;
+    cout << "wiek" << endl;
+    cin >> wskaznik -> wiek;
+
+}
+
+void wyswietl(lista *wskaznik) {
+
+    cout << "Imie: " << wskaznik -> imie << endl;
+    cout << "nazwisko: " << wskaznik -> nazwisko << endl;
+    cout << "PESEL: " << wskaznik -> pesel << endl;
+    cout << "wiek: " << wskaznik -> wiek << endl << endl;
+}
+
+int main() {
+
+    int wyb;
+
+    do {
+        lista osoba;
+        lista *wskaznik = &osoba;
+
+        cout << "Menu" << endl;
+        cout << "1.Dodaj osobe" << endl;
+        cout << "2.Usun element" << endl;
+        cout << "3.Wyswietl stos" << endl;
+        cout << "4.Plik" << endl;
+        cout << "5.Wyjscie" << endl;
+        cin >> wyb;
+
+        switch (wyb) {
+            case 1: {
+                dodaj(wskaznik);
+                break;
+            }
+
+            case 2: {
+                break;
+            }
+
+            case 3: {
+                wyswietl(wskaznik);
+            }
+        }
+    }while(wyb != 5);
+
+    return 0;
+}
+```
