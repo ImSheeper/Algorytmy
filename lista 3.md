@@ -3,143 +3,112 @@
 
 using namespace std;
 
-typedef struct lista
-{
-    string imie;
-    string nazwisko;
-    string PESEL;
-    int wiek;
-    lista *pop;
-} lista;
-
-lista* pocz = nullptr;
-
-lista* ostatni();
-
-void wypiszOsoby() {
-    lista* obecny = pocz;
-    if(!obecny) return;
-    do{
-        //wypisywanie
-        cout << "Imie: " <<obecny->imie << endl;
-        cout << "Nazwisko: " <<obecny->nazwisko << endl;
-        cout << "Pesel: " <<obecny->PESEL << endl;
-        cout << "Wiek: " <<obecny->wiek << endl << endl;
-        obecny = obecny->pop;
-    } while(obecny);
-}
-
-void dodajOsobe(string imie, string nazwisko, string pesel, int wiek) {
-    if(pocz) {
-        lista* obecny = ostatni();
-        obecny->pop = new lista{imie, nazwisko, pesel, wiek, nullptr};
-        //cout << "Dodalem osobe nie na poczatek" << endl;
-    } else {
-        pocz = new lista{imie, nazwisko, pesel, wiek, nullptr};
-        //cout << "Dodalem osobe na poczatek" << endl;
-    }
-}
-
-lista* ostatni() {
-    lista* obecny = pocz;
-    while(obecny->pop) {
-        obecny = obecny->pop;
-    }
-    return obecny;
-}
-
-lista* przedostatni() {
-    lista* przed = pocz;
-    if(!przed->pop) return przed;
-    while(przed->pop->pop) {
-        przed = przed->pop;
-    }
-    return przed;
-}
-
-
-
-void usunOsobe() {
-    if(!pocz) return;
-
-    if(!pocz->pop) {
-        delete pocz;
-        pocz = nullptr;
-        return;
-    }
-
-    lista* przedost = przedostatni();
-    delete przedost->pop;
-    przedost->pop = nullptr;
-}
-
-void usunWszystkich() {
-    while(pocz) {
-        usunOsobe();
-    }
-}
-
-int main()
-{
-
-
-    dodajOsobe("Kamil", "Ciebien", "456", 56);
-    dodajOsobe("David", "Ali", "654", 100);
-    dodajOsobe("Mateusz", "Kanarski", "123", 10);
-    dodajOsobe("Adam", "Sandler", "12356", 110);
-    usunOsobe();
-
-    wypiszOsoby();
-
-
-
-
-    usunWszystkich();
-    return 0;
-}
-```
-# moje podejście, nie działa
-```
-#include <iostream>
-
-using namespace std;
-
-struct lista {
+struct osoba {
     string imie;
     string nazwisko;
     string pesel;
     int wiek;
-    lista *pop;
+
+    osoba *next;
+    osoba();
 };
 
-void dodaj(lista *wskaznik) {
-
-    cout << "Imie" << endl;
-    cin >> wskaznik -> imie;
-    cout << "Nazwisko" << endl;
-    cin >> wskaznik -> nazwisko;
-    cout << "PESEL" << endl;
-    cin >> wskaznik -> pesel;
-    cout << "wiek" << endl;
-    cin >> wskaznik -> wiek;
-
+osoba::osoba() {
+    next = 0;
 }
 
-void wyswietl(lista *wskaznik) {
+struct lista {
 
-    cout << "Imie: " << wskaznik -> imie << endl;
-    cout << "nazwisko: " << wskaznik -> nazwisko << endl;
-    cout << "PESEL: " << wskaznik -> pesel << endl;
-    cout << "wiek: " << wskaznik -> wiek << endl << endl;
+    osoba *pocz;
+
+    void dodaj();
+    void wyswietl();
+    void usun(int nr);
+
+    lista();
+};
+
+lista::lista() {
+    pocz = 0;
+}
+
+void lista::dodaj() {
+
+    osoba *nowa = new osoba;
+
+    cout << "Imie" << endl;
+    cin >> nowa -> imie;
+    cout << "Nazwisko" << endl;
+    cin >> nowa -> nazwisko;
+    cout << "PESEL" << endl;
+    cin >> nowa -> pesel;
+    cout << "wiek" << endl;
+    cin >> nowa -> wiek;
+
+    if(pocz == 0) pocz = nowa;
+
+    else {
+        osoba *temp = pocz;
+        while(temp -> next) temp = temp -> next;
+
+        temp -> next = nowa;
+        nowa -> next = 0;
+    }
+}
+
+void lista::wyswietl() {
+
+    osoba *temp = pocz;
+    int id = 1;
+
+    while(temp) {
+        cout << "Id: " <<  id << endl;
+        cout << "Imie: " <<  temp -> imie << endl;
+        cout << "nazwisko: " << temp -> nazwisko << endl;
+        cout << "PESEL: " << temp -> pesel << endl;
+        cout << "wiek: " << temp -> wiek << endl << endl;
+
+        temp = temp -> next;
+        id++;
+    }
+}
+
+void lista::usun(int nr) {
+
+    if(nr == 1) {
+        osoba *temp = pocz;
+        pocz = temp -> next;
+        delete temp;
+    }
+    else if(nr >= 2) {
+        int j = 1;
+
+        osoba *temp = pocz;
+
+        while(temp) {
+            if(j + 1 == nr) break;
+            temp = temp -> next;
+            j++;
+        }
+
+        if(temp -> next -> next == 0) {
+            delete temp -> next;
+            temp -> next = 0;
+        }
+        else {
+            osoba *usuwana = temp -> next;
+            temp -> next = temp -> next -> next;
+            delete usuwana;
+        }
+    }
 }
 
 int main() {
 
-    int wyb;
+    int wyb, id;
+    lista *baza = new lista;
 
     do {
-        lista osoba;
-        lista *wskaznik = &osoba;
 
         cout << "Menu" << endl;
         cout << "1.Dodaj osobe" << endl;
@@ -151,16 +120,19 @@ int main() {
 
         switch (wyb) {
             case 1: {
-                dodaj(wskaznik);
+                baza -> dodaj();
                 break;
             }
 
             case 2: {
+                cout << "Podaj id do usuniecia" << endl;
+                cin >> id;
+                baza -> usun(id);
                 break;
             }
 
             case 3: {
-                wyswietl(wskaznik);
+                baza -> wyswietl();
             }
         }
     }while(wyb != 5);
