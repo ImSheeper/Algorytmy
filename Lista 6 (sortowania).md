@@ -329,7 +329,6 @@ void MergeSort(int *tab, int low, int high, int n) {
 
         Merge(tab, low, high, mid);
     }
-
 }
 
 int getMax(int* t, int n) {
@@ -423,23 +422,133 @@ void heap(int* tab, int n) {
     plik.close();
 }
 
-void bucket(float *tab, int n) {
+int n = 300;
+int low = 1;
+int maks = 10000;
 
-    auto start = chrono::system_clock::now();
+int getMaxx(int* t, int n) {
+    int naj = t[0];
 
-    vector<float> b[n];
-
-    for (int i = 0; i < n; i++) {
-        int bi = n * tab[i];
-        b[bi].push_back(tab[i]);
+    for(int i = 1; i < n; i++) {
+        if(t[i] > naj) naj = t[i];
     }
 
-    for (int i = 0; i < n; i++)
-        sort(b[i].begin(), b[i].end());
+    return naj;
+}
 
-    int index = 0;
-    for (int i = 0; i < n; i++)
-        for (int j = 0; j < b[i].size(); j++) tab[index++] = b[i][j];
+int getMaxx(vector<int> t) {
+    int naj = t[0];
+
+    for(int i = 1; i < t.size(); i++) {
+        if(t[i] > naj) naj = t[i];
+    }
+
+    return naj;
+}
+
+int getMin(vector<int> t) {
+    int naj = t[0];
+
+    for(int i = 1; i < t.size(); i++) {
+        if(t[i] < naj) naj = t[i];
+    }
+
+    return naj;
+}
+
+int getMin(int* t, int n) {
+    int naj = t[0];
+
+    for(int i = 1; i < n; i++) {
+        if(t[i] < naj) naj = t[i];
+    }
+
+    return naj;
+}
+
+void zliczanie(int* t, int n) {
+    int maxx = getMaxx(t, n) + 1;
+    int* c = new int[maxx];
+
+    for(int i = 0; i < maxx; i++) {
+        c[i] = 0;
+    }
+
+    for(int i = 0; i < n; i++) {
+        c[t[i]]++;
+    }
+
+    int ktory = 0;
+
+    for(int liczba = 0; liczba < maxx; liczba++) {
+        for(int ileJej = 0; ileJej < c[liczba]; ileJej++) {
+            t[ktory] = liczba;
+            ktory++;
+        }
+    }
+
+    delete[] c;
+}
+
+void zliczanie(vector<int>& t, bool wys = false) {
+    int n = t.size();
+    int maxx = getMaxx(t) + 1;
+    vector<int> c;
+
+    for(int i = 0; i < maxx; i++) {
+        c.push_back(0);
+    }
+
+    for(int i = 0; i < n; i++) {
+        c[t[i]]++;
+    }
+
+    int ktory = 0;
+
+    for(int liczba = 0; liczba < maxx; liczba++) {
+        for(int ileJej = 0; ileJej < c[liczba]; ileJej++) {
+            t[ktory] = liczba;
+            ktory++;
+        }
+    }
+
+}
+
+void kubelek(int* t, int n) {
+    auto start = chrono::system_clock::now();
+
+    int mx = getMaxx(t, n);
+    int mn = getMin(t, n);
+
+    int ileKubelkow = 10;
+    vector<int> kubelki[ileKubelkow];
+
+    int r = mx - mn;
+    float p = (float)r / (float)ileKubelkow + 0.02;
+
+    float prog = mn + p;
+    int indexKubelka = 0;
+    for(int i = 0; i < n; i++) {
+        prog = mn + p;
+        indexKubelka = 0;
+        while(t[i] > prog) {
+            prog += p;
+            indexKubelka++;
+        }
+        (kubelki[indexKubelka]).push_back(t[i]);
+    }
+
+    for(int i = 0; i < ileKubelkow; i++) {
+        zliczanie(kubelki[i]);
+    }
+
+    int indexTab = 0;
+    for(int i = 0; i < ileKubelkow; i++) {
+        for(auto liczba : kubelki[i]) {
+            t[indexTab] = liczba;
+            indexTab++;
+        }
+    }
 
     auto end = chrono::system_clock::now();
 
