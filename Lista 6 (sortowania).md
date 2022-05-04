@@ -5,6 +5,7 @@
 #include <chrono>
 #include <vector>
 #include <algorithm>
+#include <fstream>
 
 using namespace std;
 
@@ -83,6 +84,12 @@ int main() {
             chrono::duration<double> time = end - start;
 
             cout << endl << "Czas operacji: " << time.count() << endl;
+
+            ofstream plik;
+            plik.open("Scalanie.txt");
+            plik << "Nazwa sortowania: Przez scalanie" << endl;
+            plik << "Czas operacji: " << time.count() << endl;
+            plik.close();
         }
 
         if (sort == 5) countSort(tab, n - 1);
@@ -97,6 +104,12 @@ int main() {
             chrono::duration<double> time = end - start;
 
             cout << endl << "Czas operacji: " << time.count() << endl;
+
+            ofstream plik;
+            plik.open("quick.txt");
+            plik << "Nazwa sortowania: Szybkie" << endl;
+            plik << "Czas operacji: " << time.count() << endl;
+            plik.close();
         }
 
         if (sort == 9) {
@@ -121,6 +134,12 @@ int main() {
 
             cout << endl << "Czas operacji: " << time.count() << endl << endl;
 
+            ofstream plik;
+            plik.open("Scalanie.txt");
+            plik << "Nazwa sortowania: Przez scalanie" << endl;
+            plik << "Czas operacji: " << time.count() << endl;
+            plik.close();
+
             cout << "Przez zliczanie: ";
             countSort(tab, n - 1);
             cout << endl;
@@ -139,6 +158,11 @@ int main() {
             time = end - start;
 
             cout << endl << "Czas operacji: " << time.count() << endl;
+
+            plik.open("quick.txt");
+            plik << "Nazwa sortowania: Szybkie" << endl;
+            plik << "Czas operacji: " << time.count() << endl;
+            plik.close();
         }
 
         cout << "Powtorzyc? t/n" << endl;
@@ -188,6 +212,12 @@ void bubble(int* tab, int n) {
     chrono::duration<double> time = end - start;
 
     cout << endl << "Czas operacji: " << time.count() << endl;
+
+    ofstream plik;
+    plik.open("babelek.txt");
+    plik << "Nazwa sortowania: Babelkowe" << endl;
+    plik << "Czas operacji: " << time.count() << endl;
+    plik.close();
 }
 
 void selection(int* tab, int n) {
@@ -210,6 +240,12 @@ void selection(int* tab, int n) {
     chrono::duration<double> time = end - start;
 
     cout << endl << "Czas operacji: " << time.count() << endl;
+
+    ofstream plik;
+    plik.open("wybor.txt");
+    plik << "Nazwa sortowania: Przez wybor" << endl;
+    plik << "Czas operacji: " << time.count() << endl;
+    plik.close();
 }
 
 void insertion(int* tab, int n) {
@@ -235,6 +271,12 @@ void insertion(int* tab, int n) {
     chrono::duration<double> time = end - start;
 
     cout << endl << "Czas operacji: " << time.count() << endl;
+
+    ofstream plik;
+    plik.open("wstawianie.txt");
+    plik << "Nazwa sortowania: Przez wstawianie" << endl;
+    plik << "Czas operacji: " << time.count() << endl;
+    plik.close();
 }
 
 void Merge(int *tab, int low, int high, int mid) {
@@ -287,6 +329,7 @@ void MergeSort(int *tab, int low, int high, int n) {
 
         Merge(tab, low, high, mid);
     }
+
 }
 
 int getMax(int* t, int n) {
@@ -330,6 +373,12 @@ void countSort(int* t, int n) {
     chrono::duration<double> time = end - start;
 
     cout << endl << "Czas operacji: " << time.count() << endl;
+
+    ofstream plik;
+    plik.open("Zliczanie.txt");
+    plik << "Nazwa sortowania: Przez zliczanie" << endl;
+    plik << "Czas operacji: " << time.count() << endl;
+    plik.close();
 }
 
 void heapify(int* tab, int n, int i) {
@@ -367,10 +416,13 @@ void heap(int* tab, int n) {
 
     cout << endl << "Czas operacji: " << time.count() << endl;
 
+    ofstream plik;
+    plik.open("kopcowanie.txt");
+    plik << "Nazwa sortowania: Przez kopcowanie" << endl;
+    plik << "Czas operacji: " << time.count() << endl;
+    plik.close();
 }
 
-// NIE DZIALA - Wysypuje sie program z jakiegos powodu, prawdopodobnie przez problemy z
-//konwertowaniem
 void bucket(float *tab, int n) {
 
     auto start = chrono::system_clock::now();
@@ -394,6 +446,12 @@ void bucket(float *tab, int n) {
     chrono::duration<double> time = end - start;
 
     cout << endl << "Czas operacji: " << time.count() << endl;
+
+    ofstream plik;
+    plik.open("kubelkowe.txt");
+    plik << "Nazwa sortowania: Kubelkowe" << endl;
+    plik << "Czas operacji: " << time.count() << endl;
+    plik.close();
 }
 
 //Nie wiem jak mierzyc czas, wiec funkcja z tego poleciala do main'a
